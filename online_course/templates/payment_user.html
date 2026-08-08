@@ -1,0 +1,230 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container mt-5 mb-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-7">
+
+            <div class="card shadow border-0"
+                 style="border-radius: 15px;">
+
+                <!-- Header -->
+
+                <div class="card-header text-center text-white"
+                     style="
+                     background-color: #7f25ab;
+                     border-radius: 15px 15px 0 0;
+                     padding: 20px;
+                     ">
+
+                    <h3 class="mb-1">
+                        <i class="fa-solid fa-circle-check"></i>
+                        Payment Successful
+                    </h3>
+
+
+                </div>
+
+
+                <div class="card-body p-4">
+
+                    <!-- Customer Details -->
+
+                    <h5 class="mb-3">
+                        <i class="fa-regular fa-user"></i>
+                        Personal Details
+                    </h5>
+
+                    <div class="row mb-3">
+
+                        <div class="col-sm-5">
+                            <strong>Name</strong>
+                        </div>
+
+                        <div class="col-sm-7">
+                            {{ payment.name }}
+                        </div>
+
+                    </div>
+
+                    <div class="row mb-3">
+
+                        <div class="col-sm-5">
+                            <strong>Email</strong>
+                        </div>
+
+                        <div class="col-sm-7">
+                            {{ payment.email }}
+                        </div>
+
+                    </div>
+
+                    <div class="row mb-3">
+
+                        <div class="col-sm-5">
+                            <strong>Phone</strong>
+                        </div>
+
+                        <div class="col-sm-7">
+                            {{ payment.phone }}
+                        </div>
+
+                    </div>
+
+                    <div class="row mb-4">
+
+                        <div class="col-sm-5">
+                            <strong>WhatsApp</strong>
+                        </div>
+
+                        <div class="col-sm-7">
+                            {{ payment.whatsapp }}
+                        </div>
+
+                    </div>
+
+
+                    <hr>
+
+
+                    <!-- Course Details -->
+
+                    <h5 class="mb-3 mt-4">
+
+                        <i class="fa-solid fa-graduation-cap"></i>
+
+                        Course Details
+
+                    </h5>
+
+                    <div class="row mb-3">
+
+                        <div class="col-sm-5">
+                            <strong>Course</strong>
+                        </div>
+
+                        <div class="col-sm-7">
+                            {{ payment.course.name }}
+                        </div>
+
+                    </div>
+
+                    <div class="row mb-3">
+
+                        <div class="col-sm-5">
+                            <strong>Learning Mode</strong>
+                        </div>
+
+                        <div class="col-sm-7">
+                            {{ payment.learning_mode }}
+                        </div>
+
+                    </div>
+
+                    <div class="row mb-4">
+
+                        <div class="col-sm-5">
+                            <strong>Amount</strong>
+                        </div>
+
+                        <div class="col-sm-7">
+
+                            <strong style="color: #198754;">
+                                ₹{{ payment.amount }}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <hr>
+
+
+                    <!-- Razorpay Details -->
+
+                    <h5 class="mb-3 mt-4">
+
+                        <i class="fa-solid fa-credit-card"></i>
+
+                        Payment Details
+
+                    </h5>
+
+                    <div class="row mb-3">
+
+                        <div class="col-sm-5">
+                            <strong>Payment ID</strong>
+                        </div>
+
+                        <div class="col-sm-7">
+
+                            <small>
+                                {{ payment.razorpay_payment_id }}
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row mb-3">
+
+                        <div class="col-sm-5">
+                            <strong>Order ID</strong>
+                        </div>
+
+                        <div class="col-sm-7">
+
+                            <small>
+                                {{ payment.razorpay_order_id }}
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-sm-5">
+                            <strong>Status</strong>
+                        </div>
+
+                        <div class="col-sm-7">
+
+                            <span class="badge bg-success">
+                                {{ payment.payment_status }}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Button -->
+
+                    <div class="text-center mt-4">
+
+                        <a href="{% url 'courses' %}"
+                           class="btn btn-primary px-4">
+
+                            Back to Courses
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

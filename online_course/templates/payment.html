@@ -1,0 +1,240 @@
+
+
+{% extends 'base.html' %}
+{% load static %}
+
+<link href="{% static 'css/style.css' %}" rel="stylesheet">
+{% block content %}
+
+
+
+<div class="background">
+
+
+
+
+<div class=" container w-50 border border-3 p-5 wow fadeInUp pb-3 mt-5 position-absolute " style="margin-left: 380px;border-radius: 15px;">
+<form method="post" enctype="multipart/form-data" class="animated slideInUp text-dark">
+
+    {% csrf_token %}
+
+    <div class="pb-4">
+
+        <i class="fa-regular fa-user"></i> <span style="font-weight: bold;font-size: 20px">Personal Information</span>
+
+</div>
+
+<div class="row">
+
+    <div class="col-md-6 mb-3">
+        <label style="color: gray;font-weight: bold;font-size: 15px">Your Name*</label>
+        <input type="text" class="form-control" name="name" placeholder="Your Name" style="border-radius: 10px">
+    </div>
+
+    <div class="col-md-6 mb-3">
+        <label style="color: gray;font-weight: bold;font-size: 15px">Email*</label>
+        <input type="email" class="form-control" name="email" placeholder="Email Address" style="border-radius: 10px">
+    </div>
+
+
+<div class="col-md-6 mb-3">
+
+    <label>Contact Number*</label>
+
+    <input type="tel"
+           id="phone"
+           class="form-control"
+           placeholder="Enter phone number"
+           required>
+
+    <input type="hidden"
+           name="phone"
+           id="full_phone">
+
+</div>
+
+
+<!-- WhatsApp -->
+<div class="col-md-6 mb-3">
+
+    <label>WhatsApp*</label>
+
+    <input type="tel"
+           id="whatsapp"
+           class="form-control"
+           placeholder="Enter WhatsApp number"
+           required>
+
+    <input type="hidden"
+           name="whatsapp"
+           id="full_whatsapp">
+
+</div>
+
+
+
+
+
+    <div class="pb-3 pt-3">
+
+        <i class="fa-solid fa-graduation-cap fa-lg" style="color: rgb(127, 37, 171);"></i> <span style="font-weight: bold;font-size: 20px">Course Selection</span>
+
+
+    </div>
+
+
+
+    <div class="row">
+        <div class="col">
+
+<div class="mb-3">
+    <label class="form-label" style="color: gray;font-weight: bold;font-size: 15px">Course *</label>
+
+    <select name="course" class="form-select" required style="border-radius: 10px">
+        <option value=""  >-- Select Course --</option>
+
+        {% for course in courses %}
+            <option value="{{ course.id }}">
+                {{ course.name }}
+            </option>
+        {% endfor %}
+
+    </select>
+</div>
+        </div>
+
+
+        <div class="col">
+
+            <div class="mb-3">
+    <label class="form-label" style="color: gray;font-weight: bold;font-size: 15px">Learning Mode *</label>
+
+        <select name="learning_mode" class="form-select" required style="border-radius: 10px">
+
+    <option value="">-- Select Learning Mode --</option>
+    <option value="Online">Online</option>
+    <option value="Offline">Offline</option>
+
+</select>
+                
+</div>
+        </div>
+    </div>
+
+
+
+    <div class="row mt-4 mb-5">
+    <div class="col-12">
+
+        <button type="submit"
+                class="pay-btn">
+
+            <span class="pay-icon">
+                <i class="fa-regular fa-circle-check"></i>
+            </span>
+
+            <span class="pay-text">
+                Pay Now
+            </span>
+
+            <span class="arrow">
+                →
+            </span>
+
+            <span class="lock">
+                <i class="fa-solid fa-lock"></i>
+            </span>
+
+            <span class="secure">
+                <i class="fa-solid fa-lock"></i>
+                Secure
+            </span>
+
+        </button>
+
+    </div>
+</div>
+</div>
+
+
+
+
+ </form>
+</div>
+
+
+    </div>
+
+<style>
+
+.background {
+    width: 100%;
+    min-height: 100vh;
+
+    background-image: url("{% static 'img/index.png' %}");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    color: white;
+
+}
+</style>
+
+
+
+
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/19.5.6/css/intlTelInput.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/19.5.6/js/intlTelInput.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/19.5.6/js/utils.js"></script>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const form = document.querySelector("form");
+
+    const phoneInput = document.getElementById("phone");
+    const whatsappInput = document.getElementById("whatsapp");
+
+    const phoneITI = window.intlTelInput(phoneInput, {
+        initialCountry: "in",
+        preferredCountries: ["in", "us", "gb", "ae"],
+        separateDialCode: true,
+        allowDropdown: true,
+        nationalMode: true,
+        autoPlaceholder: "off"
+    });
+
+    const whatsappITI = window.intlTelInput(whatsappInput, {
+        initialCountry: "in",
+        preferredCountries: ["in", "us", "gb", "ae"],
+        separateDialCode: true,
+        allowDropdown: true,
+        nationalMode: true,
+        autoPlaceholder: "off"
+    });
+
+
+    form.addEventListener("submit", function (event) {
+
+        // Get complete international phone number
+        const phoneNumber = phoneITI.getNumber();
+        const whatsappNumber = whatsappITI.getNumber();
+
+        // Put values into hidden inputs
+        document.getElementById("full_phone").value = phoneNumber;
+        document.getElementById("full_whatsapp").value = whatsappNumber;
+
+        console.log("Phone:", phoneNumber);
+        console.log("WhatsApp:", whatsappNumber);
+    });
+
+});
+</script>
+
+{% endblock %}

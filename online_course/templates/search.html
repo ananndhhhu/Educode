@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block content %}
+
+<style>
+
+    .card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-body .btn {
+    margin-top: auto;
+}
+
+
+/* Grid View (Default) */
+#cardContainer.grid-view .card{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#cardContainer.grid-view .card img{
+    width: 100%;
+    height: 250px;
+
+}
+
+#cardContainer.grid-view .btn{
+    margin-top: auto;
+    margin-left:110px;
+}
+
+/* List View */
+#cardContainer.list-view .col-md-4,
+#cardContainer.list-view .col-12{
+    width: 100%;
+    max-width: 100%;
+}
+
+#cardContainer.list-view .card{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 250px;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+#cardContainer.list-view .card img{
+    width:358px;
+    height: 100%;
+
+    border-radius: 0;
+    padding: 10px !important;
+}
+
+#cardContainer.list-view .card-body{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+}
+
+#cardContainer.list-view .btn{
+    margin-top: auto;
+    width: 150px;
+    margin-left:550px;
+}
+
+#cardContainer.list-view .card-title{
+    font-size: 24px;
+}
+
+#cardContainer.list-view .card-text{
+    font-size: 16px;
+}
+</style>
+
+
+
+<script>
+
+function setGridView() {
+    document.getElementById("cardContainer").classList.remove("list-view");
+    document.getElementById("cardContainer").classList.add("grid-view");
+}
+
+function setListView() {
+    document.getElementById("cardContainer").classList.remove("grid-view");
+    document.getElementById("cardContainer").classList.add("list-view");
+}
+
+</script>
+
+
+<div class="row pt-5 " style="margin-top: 100px"  >
+    <div class="col-3 pb-5" style="margin-left:203px" >
+
+        <form class="d-flex" action="{% url 'search' %}">
+        <input class="form-control me-2" type="search" name="q" style="border-color:  #7f25ab " placeholder="Search" aria-label="Search">
+            <button class="btn " style="background-color:  #7f25ab;border-color:  #7f25ab ;color: white;" type="submit">Search</button>
+      </form>
+</div>
+
+        <div class="col " style="margin-left:568px">
+
+            <button class=" btn btn-primary grid-view ms-5" type="button" id="grid-view" onclick="setGridView()" ><i class="fa-solid fa-grip"></i></button>
+    <button class="  btn btn-primary ms-3" type="button" id="list-view" onclick="setListView()"><i class="fa-solid fa-list-ul"></i></button>
+
+
+    </div>
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+<div class="container w-75">
+
+<div class="row grid-view" id="cardContainer">
+    {% if search %}
+        {% for i in search %}
+
+        <div class="col-md-4 mb-4 course-item animated slideInUp" data-wow-delay="0.1s">
+
+            <div class="card h-100 border shadow" style="border-radius: 15px">
+    <a href="{% url 'coursedetail' i.id %}">
+    <img src="{{ i.image.url }}" class="card-img-top p-2 " style="height: 250px;border-radius: 18px; transition: none;transform: none" alt="Course Image">
+</a>
+                <div class="card-body">
+                    <h5 class="card-title">{{ i.name }}</h5>
+      <p class="card-text"> <i class="fa-regular fa-file-lines"></i>{{ i.modules }} Modules
+          <i class="fa-regular fa-clock fa-spin fa-spin-reverse ms-3"></i> {{ i.duration }} Months
+      <i class="fa-solid fa-star ms-3" style="color: rgb(255, 212, 59);"></i>(4.95)
+
+      </p>
+
+                    <p class="card-text">
+                        {{ i.description }}
+                    </p>
+<div class="mt-auto pb-2">
+                    <a href="{% url 'coursedetail' i.id %}" class="btn btn-primary" style="transform: none;transition: none" >See More</a>
+</div>
+                </div>
+            </div>
+
+        </div>
+                                                {% endfor %}
+                                         {% else %}
+    <h4 style="text-align:center;">No Search Result Found</h4>
+    {% endif %}
+
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

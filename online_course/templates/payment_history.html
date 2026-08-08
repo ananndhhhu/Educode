@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5 mb-5">
+
+    <h2 class="text-center mb-4">
+        My Payment Details
+    </h2>
+
+
+    <div class="row">
+
+        {% for payment in payments %}
+
+        <div class="col-md-6 mb-4">
+
+            <div class="card shadow border-0">
+
+                <div class="card-header text-white"
+                     style="background:#7f25ab;">
+
+                    <h5 class="mb-0">
+                        <i class="fa-solid fa-circle-check"></i>
+
+                        Payment Successful
+                    </h5>
+
+                </div>
+
+
+                <div class="card-body">
+
+                    <h5>
+                        <i class="fa-solid fa-user"></i>
+                        Personal Details
+                    </h5>
+
+                    <hr>
+
+                    <p>
+                        <strong>Name:</strong>
+                        {{ payment.name }}
+                    </p>
+
+                    <p>
+                        <strong>Email:</strong>
+                        {{ payment.email }}
+                    </p>
+
+                    <p>
+                        <strong>Phone:</strong>
+                        {{ payment.phone }}
+                    </p>
+
+                    <p>
+                        <strong>WhatsApp:</strong>
+                        {{ payment.whatsapp }}
+                    </p>
+
+
+                    <hr>
+
+
+                    <h5>
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        Course Details
+                    </h5>
+
+                    <hr>
+
+                    <p>
+                        <strong>Course:</strong>
+
+                        {{ payment.course.name }}
+                    </p>
+
+                    <p>
+                        <strong>Learning Mode:</strong>
+
+                        {{ payment.learning_mode }}
+                    </p>
+
+                    <p>
+                        <strong>Amount:</strong>
+
+                        <span style="color:green;font-weight:bold;">
+                            ₹{{ payment.amount }}
+                        </span>
+                    </p>
+
+
+                    <hr>
+
+
+                    <h5>
+                        <i class="fa-solid fa-credit-card"></i>
+                        Payment Details
+                    </h5>
+
+                    <hr>
+
+                    <p>
+                        <strong>Payment ID:</strong><br>
+
+                        {{ payment.razorpay_payment_id }}
+                    </p>
+
+                    <p>
+                        <strong>Order ID:</strong><br>
+
+                        {{ payment.razorpay_order_id }}
+                    </p>
+
+                    <p>
+                        <strong>Status:</strong>
+
+                        <span class="badge bg-success">
+                            {{ payment.payment_status }}
+                        </span>
+                    </p>
+
+                   <p>
+    <strong>Date:</strong>
+    {{ payment.created|date:"d-m-Y H:i" }}
+</p>
+
+
+                    <a href="{% url 'payment-success' %}?payment_id={{ payment.id }}"
+                       class="btn btn-primary w-100">
+
+                        View Full Details
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="col-12 text-center">
+
+            <h4>No payment history found.</h4>
+
+            <a href="{% url 'payment' %}"
+               class="btn btn-primary mt-3">
+
+                Make Payment
+
+            </a>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

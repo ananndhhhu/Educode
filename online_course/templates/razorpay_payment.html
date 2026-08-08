@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-6">
+
+            <div class="card shadow">
+
+                <div class="card-body text-center">
+
+                    <h3>Complete Payment</h3>
+
+                    <hr>
+
+                    <h5>{{ course.name }}</h5>
+
+                    <p>
+
+                        <h3>Amount: ₹{{ amount }}</h3>
+                    </p>
+
+                    <p>
+                        Learning Mode:
+                        <strong>{{ payment.learning_mode }}</strong>
+                    </p>
+
+                <button id="pay-btn" class="btn btn-success w-100">
+    Pay ₹1000
+</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
+
+<script>
+
+var options = {
+
+    "key": "{{ razorpay_key }}",
+
+    "amount": "{{ order.amount }}",
+
+    "currency": "INR",
+
+    "name": "EduCode",
+
+    "description": "Course Payment",
+
+    "order_id": "{{ order.id }}",
+
+    "handler": function (response) {
+
+        console.log("Payment ID:", response.razorpay_payment_id);
+        console.log("Order ID:", response.razorpay_order_id);
+        console.log("Signature:", response.razorpay_signature);
+
+        window.location.href =
+            "{% url 'payment-success' %}" +
+            "?payment_id=" + response.razorpay_payment_id +
+            "&order_id=" + response.razorpay_order_id +
+            "&signature=" + response.razorpay_signature;
+    },
+
+    "theme": {
+        "color": "#7f25ab"
+    }
+};
+
+var rzp = new Razorpay(options);
+
+document.getElementById("pay-btn").onclick = function(e) {
+    rzp.open();
+    e.preventDefault();
+};
+
+</script>
+
+{% endblock %}

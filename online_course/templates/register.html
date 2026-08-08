@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+<style>
+
+
+    .background {
+    width: 100%;
+    min-height: 100vh;
+
+    background-image: url("{% static 'img/index.png' %}");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    color: white;
+
+}
+
+    </style>
+
+
+
+<div class="background ">
+
+
+
+
+
+<div class=" container w-50 border border-3 p-5 wow fadeInUp pb-3 position-absolute mt-5 " style="margin-left: 380px">
+    <form method="post" class="text-dark ">
+
+
+
+ <h1 class=" mb-5 text-center">Register Now</h1>
+
+    {% csrf_token %}
+
+<div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-label">Username*</label>
+  <input type="text" class="form-control" name="username"  placeholder="Username">
+</div>
+        <div class="mb-3">
+  <label for="exampleFormControlInput2" id="pass" class="form-label">Password*</label>
+  <input type="password" class="form-control" name="password"  placeholder="Password">
+</div>
+
+<div class="mb-3">
+  <label for="exampleFormControlInput3" class="form-label">Confirm password*</label>
+  <input type="password" class="form-control" name="confirm_password" placeholder="Confirm password">
+</div>
+
+<div class="mb-3">
+  <label for="exampleFormControlInput4" class="form-label">Email address*</label>
+  <input type="email" class="form-control" name="email" placeholder="name@example.com">
+</div>
+
+    <div class="d-grid gap-2 col mx-auto">
+
+  <button class="btn btn-primary mb-5 mt-3 " style="width: 100%" type="submit">Register</button>
+</div>
+</form>
+</div>
+
+
+
+</div>
+
+{% endblock %}

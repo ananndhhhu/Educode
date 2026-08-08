@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+
+
+    .background {
+    width: 100%;
+    min-height: 100vh;
+
+    background-image: url("{% static 'img/index.png' %}");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    color: white;
+
+}
+
+.card {
+
+    background-color: transparent;
+    border: none;
+    width: 700px;
+    margin-top: 150px;
+    margin-left: 200px;
+    height: 500px;
+
+
+}
+
+
+
+</style>
+
+
+
+<div class="background ">
+
+    <div class="container position-absolute">
+
+
+<div class="container text-center">
+
+<div class="row">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <h1 class="card-title" style="text-transform: uppercase;font-weight:bold;color:var(--primary) ">{{ detail.name }}</h1>
+        <p class="card-text text-dark">{{ detail.description }}</p>
+                <p class="card-text text-dark"> <i class="fa-regular fa-file-lines"></i>{{ detail.modules }} Modules   <i class="fa-regular fa-clock fa-spin fa-spin-reverse"></i> {{ detail.duration }} Months </p>
+
+
+{% if user.is_superuser %}
+
+    <!-- Admin buttons -->
+    <a href="{% url 'edit' detail.id %}" class="btn btn-primary">
+        Edit
+    </a>
+
+    <a href="{% url 'delete' detail.id %}" class="btn btn-danger">
+        Delete
+    </a>
+
+{% elif user.is_authenticated %}
+
+    {% if has_paid %}
+
+        <!-- Already completed payment -->
+        <a href="{% url 'payment-history'  %}" class="btn btn-primary">
+            Payment History
+        </a>
+
+    {% else %}
+
+        <!-- Normal user - not paid -->
+        <a href="{% url 'payment' %}" class="btn btn-primary">
+            Apply Now
+        </a>
+
+    {% endif %}
+
+{% else %}
+
+    <!-- Not logged in -->
+    <a href="{% url 'userlogin' %}" class="btn btn-primary">
+        Login Now
+    </a>
+
+{% endif %}
+
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+<!--  <div class="col-sm-6">-->
+<!--    <div class="card">-->
+<!--      <div class="card-body">-->
+<!--        <h5 class="card-title">Special title treatment</h5>-->
+<!--        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>-->
+<!--        <a href="#" class="btn btn-primary">Go somewhere</a>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+</div>
+</div>
+    </div>
+</div>
+
+{% endblock %}
